@@ -30,11 +30,13 @@ const Signup = () => {
     console.log(formState);
 
     try {
+      console.log('hello')
       const { data } = await addProfile({
         variables: { ...formState },
       });
-
+      console.log(data.addProfile.token)
       Auth.login(data.addProfile.token);
+      
     } catch (e) {
       console.error(e);
     }
