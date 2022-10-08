@@ -1,39 +1,49 @@
-const { User } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
+const { Profile } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
-    Query: {
-        usernameAll: async () => {
-            return User.find({});
-        },
-        usernameOne: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return User.find(params);
-        },
+  Query: {
+    profiles: async () => {
+      return Profile.find();
     },
-    Mutation: {
-        addUser: async (parent, { username, email, password }) => {
-            const profile = await User.create({ username, email, password });
-            const token = signToken(profile);
 
-            return { token, profile };
-        },
-        login: async (parent, { email, password }) => {
-            const profile = await User.findOne({ email });
+    profile: async (parent, { profileId }) => {
+      return Profile.findOne({ _id: profileId });
+    },
+    // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Profile.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+  },
 
-            if (!profile) {
-                throw new AuthenticationError('No profile with this email found!');
-            }
+  Mutation: {
+    addProfile: async (parent, { name, email, password }) => {
+      const profile = await Profile.create({ name, email, password });
+      const token = signToken(profile);
 
-            const correctPw = await profile.isCorrectPassword(password);
+      return { token, profile };
+    },
+    login: async (parent, { email, password }) => {
+      const profile = await Profile.findOne({ email });
 
-            if (!correctPw) {
-                throw new AuthenticationError('Incorrect password!');
-            }
+      if (!profile) {
+        throw new AuthenticationError('No profile with this email found!');
+      }
 
-            const token = signToken(profile);
-            return { token, profile };
-        },
-    }
+      const correctPw = await profile.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password!');
+      }
+
+      const token = signToken(profile);
+      return { token, profile };
+    },
+}
 }
 
 module.exports = resolvers;
