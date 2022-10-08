@@ -33,7 +33,7 @@ const Profile = () => {
   if (!profile?.name) {
     return (
       <h4>
-        You need to be logged in to see your profile page. Use the navigation
+        You need to be LOGGED in to see your profile page. Use the navigation
         links above to sign up or log in!
       </h4>
     );
@@ -42,7 +42,7 @@ const Profile = () => {
   return (
     <div>
       <h2 className="card-header">
-        {profileId ? `${profile.name}'s` : 'Your'} playlist is here...
+        {profileId ? `${profile.name}'s` : 'Your'} PLAYLIST is here...
       </h2>
     </div>
   );
