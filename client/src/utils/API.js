@@ -1,8 +1,8 @@
-var dotenv = require('dotenv')
-var dotenvExpand = require('dotenv-expand')
+// var dotenv = require('dotenv')
+// var dotenvExpand = require('dotenv-expand')
 
-var myEnv = dotenv.config()
-dotenvExpand(myEnv)
+// var myEnv = dotenv.config()
+// dotenvExpand(myEnv)
 
 // Should be OK now.
 const spotifyApi = process.env.SPOTIFYLINK

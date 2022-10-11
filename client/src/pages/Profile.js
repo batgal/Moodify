@@ -1,4 +1,7 @@
 import React, { useState, useEffect }  from 'react';
+import Dropdown from '../components/Dropdown';
+import Listbox from '../components/Listbox';
+import Detail from '../components/Detail';
 
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -7,7 +10,7 @@ import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
-import { Credentials } from './Credentials';
+import { Credentials } from '../Credentials';
 import axios from 'axios';
 
 const Profile = () => {
@@ -22,36 +25,16 @@ const Profile = () => {
   );
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
   const profile = data?.me || data?.profile || {};
-  // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to="/me" />;
-  }
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!profile?.name) {
-    return (
-      <h4>
-        You need to be LOGGED in to see your profile page. Use the navigation
-        links above to sign up or log in!
-      </h4>
-    );
-  }
-
-
-
 
   const spotify = Credentials();  
 
   console.log('RENDERING APP.JS');
 
-  const data2 = [
-    {value: 1, name: 'A'},
-    {value: 2, name: 'B'},
-    {value: 3, name: 'C'},
-  ]; 
+  // const data = [
+  //   {value: 1, name: 'A'},
+  //   {value: 2, name: 'B'},
+  //   {value: 3, name: 'C'},
+  // ]; 
 
   const [token, setToken] = useState('');  
   const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
@@ -64,22 +47,22 @@ const Profile = () => {
     axios('https://accounts.spotify.com/api/token', {
       headers: {
         'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
+        'Authorization' : 'Basic ' + window.btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
       },
-      data2: 'grant_type=client_credentials',
+      data: 'grant_type=client_credentials',
       method: 'POST'
     })
     .then(tokenResponse => {      
-      setToken(tokenResponse.data2.access_token);
+      setToken(tokenResponse.data.access_token);
 
       axios('https://api.spotify.com/v1/browse/categories?locale=sv_US', {
         method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data2.access_token}
+        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
       })
       .then (genreResponse => {        
         setGenres({
           selectedGenre: genres.selectedGenre,
-          listOfGenresFromAPI: genreResponse.data2.categories.items
+          listOfGenresFromAPI: genreResponse.data.categories.items
         })
       });
       
@@ -100,7 +83,7 @@ const Profile = () => {
     .then(playlistResponse => {
       setPlaylist({
         selectedPlaylist: playlist.selectedPlaylist,
-        listOfPlaylistFromAPI: playlistResponse.data2.playlists.items
+        listOfPlaylistFromAPI: playlistResponse.data.playlists.items
       })
     });
 
@@ -127,7 +110,7 @@ const Profile = () => {
     .then(tracksResponse => {
       setTracks({
         selectedTrack: tracks.selectedTrack,
-        listOfTracksFromAPI: tracksResponse.data2.items
+        listOfTracksFromAPI: tracksResponse.data.items
       })
     });
   }
@@ -139,9 +122,24 @@ const Profile = () => {
     const trackInfo = currentTracks.filter(t => t.track.id === val);
 
     setTrackDetail(trackInfo[0].track);
+  }
 
 
+  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+    return <Navigate to="/me" />;
+  }
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!profile?.name) {
+    return (
+      <h4>
+        You need to be *logged* in to see your profile page. Use the navigation
+        links above to sign up or log in!
+      </h4>
+    );
   }
 
 
