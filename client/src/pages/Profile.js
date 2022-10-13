@@ -1,10 +1,11 @@
-import React from 'react';
+import React  from 'react';
 
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
 
+import MusicSearch from '../components/MusicSearch';
 import Auth from '../utils/auth';
 
 const Profile = () => {
@@ -17,9 +18,10 @@ const Profile = () => {
       variables: { profileId: profileId },
     }
   );
-
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
   const profile = data?.me || data?.profile || {};
+
+  console.log('RENDERING APP.JS');
 
   // Use React Router's `<Navigate />` component to redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
@@ -33,7 +35,7 @@ const Profile = () => {
   if (!profile?.name) {
     return (
       <h4>
-        You need to be logged in to see your profile page. Use the navigation
+        You need to be *logged* in to see your profile page. Use the navigation
         links above to sign up or log in!
       </h4>
     );
@@ -42,8 +44,9 @@ const Profile = () => {
   return (
     <div>
       <h2 className="card-header">
-        {profileId ? `${profile.name}'s` : 'Your'} playlist is here...
+        {profileId ? `${profile.name}'s` : 'Your'} PLAYLIST is here...
       </h2>
+      <MusicSearch/>
     </div>
   );
 };
