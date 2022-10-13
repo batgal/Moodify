@@ -66,8 +66,14 @@ const MusicSearch = () => {
           listOfPlaylistFromAPI: playlistResponse.data.playlists.items
         })
       });
-  
       console.log(val);
+
+      
+      if (genres.listOfGenresFromAPI.name === "Hip Hop") {
+        console.log();
+      }
+
+      console.log(genres.listOfGenresFromAPI);
     }
   
     const playlistChanged = val => {
@@ -103,8 +109,6 @@ const MusicSearch = () => {
   
       setTrackDetail(trackInfo[0].track);
   
-  
-  
     }
   
     
@@ -113,8 +117,8 @@ const MusicSearch = () => {
     return (
       <div className="container">
         <form onSubmit={buttonClicked}>        
-            <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
-            <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
+            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
+            <Dropdown label="Playlist" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
             <div className="col-sm-6 row form-group px-0">
               <button type='submit' className="btn btn-success col-sm-12">
                 Search
