@@ -7,7 +7,23 @@ import axios from 'axios';
 
 const MusicSearch = () => {
     const spotify = Credentials();  
-
+    //hard code here
+    // moods = [
+    //   {
+    //   name: "Happy",
+    //   genre: "",
+    //   },
+    //   {
+    //   name: "Angry",
+    //   genre: "",
+    //   },
+    //   {
+    //   name: "Chill",
+    //   genre: "",
+    //   }]
+      
+      
+    //   [pop, metal, rock]
     console.log('RENDERING APP.JS');
   
     const data = [
@@ -44,6 +60,10 @@ const MusicSearch = () => {
             selectedGenre: genres.selectedGenre,
             listOfGenresFromAPI: genreResponse.data.categories.items
           })
+          //logic here 
+          // moods.forEach((mood, index) => mood.genre = listOfGenresFromAPI[index]);
+
+          // moods.map((mood) => <option value={mood.genre}>{mood.name}</option>)
         });
         
       });
@@ -73,14 +93,18 @@ const MusicSearch = () => {
         console.log();
       }
 
-      console.log(genres.listOfGenresFromAPI);
+      // console.log(genres.listOfGenresFromAPI);
+      console.log(genres.listOfGenresFromAPI[0].name);
     }
   
     const playlistChanged = val => {
       console.log(val);
+      console.log(playlist.listOfPlaylistFromAPI)
       setPlaylist({
         selectedPlaylist: val,
-        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI
+        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI,
+        
+
       });
     }
   
@@ -116,7 +140,8 @@ const MusicSearch = () => {
   
     return (
       <div className="container">
-        <form onSubmit={buttonClicked}>        
+        <form onSubmit={buttonClicked}>   
+        {/* change genres to moods      */}
             <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
             <Dropdown label="Playlist" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
             <div className="col-sm-6 row form-group px-0">
