@@ -4,7 +4,7 @@
 This Moodify app landing page first requires users to sign up or log in. Upon logging in, the user can click view my profile from the header. On the user's profile then can select their mood with a corresponding top playlist from the dropdowns. The user can search this music to be given a list of songs, which when clicked give individual song information.
 
 ## Challenge Description
-The challenge required a react front end, which in this application is broken up into pages for  
+The challenge required a react front end, which in this application is broken up into pages for  the home, profile, login, and sign up. The components are the header and music search. Within the music search are three components for detail, dropdown, and listbox. Technologies used for backend include GraphQL, Node.js, Express.js, for the server and MongoDB and Mongoose ODM for the database. Queries are used for editing this data. 
 
 ## User Story
 
@@ -33,17 +33,23 @@ Have a high-quality README (with unique name, description, technologies used, sc
 
 ```
 
-## Tasks Completed
-The JavaScript documents include:
-* 
-
 ## Languages
 - JavaScript
 - HTML
 - CSS
 
+## Tech Stack
+- React
+- GraphQL
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose ODM
+- Apollo Client
+- Axios
+
 ## Links
-* [Deployment](https:/view)
+* [Deployment](https://)
 
 * [Repository](https://github.com/batgal/Moodify)
 
@@ -55,8 +61,14 @@ Villette Comfort
 
 villette@live.com
 
-Katlyn
+Katlyn Green
 
-Michael
+batgalkgg@gmail.com
 
-Jenny
+Michael Montoya
+
+m.montoya1112@gmail.com
+
+Jenny Hall
+
+jenny.c.hall96@gmail.com
