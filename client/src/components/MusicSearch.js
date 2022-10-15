@@ -17,11 +17,13 @@ const MusicSearch = () => {
     ]; 
   
     const [token, setToken] = useState('');  
-    const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
+    const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: [], correspondingWords: []});
     const [playlist, setPlaylist] = useState({selectedPlaylist: '', listOfPlaylistFromAPI: []});
     const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
     const [trackDetail, setTrackDetail] = useState(null);
   
+    const [nieman, setNieman] = useState (["happy", "sad", "lazy"])
+
     useEffect(() => {
   
       axios('https://accounts.spotify.com/api/token', {
@@ -39,11 +41,24 @@ const MusicSearch = () => {
           method: 'GET',
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
-        .then (genreResponse => {        
+        .then (genreResponse => {       
+          //Original code:
           setGenres({
             selectedGenre: genres.selectedGenre,
             listOfGenresFromAPI: genreResponse.data.categories.items
           })
+          //Added code:
+          // for (var i = 0; i<genreResponse.data.categories.items.length; i++) {
+          //   // console.log(genreResponse.data.categories.items[i])
+          //   if (genreResponse.data.categories.items[i].name === "Pop") {
+          //     setGenres({
+          //       selectedGenre: genres.selectedGenre,
+          //       listOfGenresFromAPI: genreResponse.data.categories.items,
+          //       correspondingWords: "Happy"
+          //     })
+          //     console.log(genres)
+          //   }
+          // }
         });
         
       });
@@ -66,14 +81,8 @@ const MusicSearch = () => {
           listOfPlaylistFromAPI: playlistResponse.data.playlists.items
         })
       });
-      console.log(val);
-
-      
-      if (genres.listOfGenresFromAPI.name === "Hip Hop") {
-        console.log();
-      }
-
-      console.log(genres.listOfGenresFromAPI);
+      // console.log(val);
+      // console.log(genres.listOfGenresFromAPI[0].name);
     }
   
     const playlistChanged = val => {
@@ -110,14 +119,12 @@ const MusicSearch = () => {
       setTrackDetail(trackInfo[0].track);
   
     }
-  
-    
     
   
     return (
       <div className="container">
         <form onSubmit={buttonClicked}>        
-            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
+            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.listOfGenresFromAPI} changed={genreChanged} />
             <Dropdown label="Playlist" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
             <div className="col-sm-6 row form-group px-0">
               <button type='submit' className="btn btn-success col-sm-12">
@@ -130,8 +137,6 @@ const MusicSearch = () => {
             </div>        
         </form>
       </div>
-      
-      
     );
   }
   
