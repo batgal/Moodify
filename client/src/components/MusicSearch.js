@@ -34,10 +34,12 @@ const MusicSearch = () => {
   
     const [token, setToken] = useState('');  
     const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
+    // Villette's additional logic, replaces above setGenres
+    // const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: [], correspondingWords: []});
     const [playlist, setPlaylist] = useState({selectedPlaylist: '', listOfPlaylistFromAPI: []});
     const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
     const [trackDetail, setTrackDetail] = useState(null);
-  
+
     useEffect(() => {
   
       axios('https://accounts.spotify.com/api/token', {
@@ -55,15 +57,28 @@ const MusicSearch = () => {
           method: 'GET',
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
-        .then (genreResponse => {        
+        .then (genreResponse => {       
+          // Villette's logic requires removal of this setGenres code:
           setGenres({
             selectedGenre: genres.selectedGenre,
             listOfGenresFromAPI: genreResponse.data.categories.items
           })
-          //logic here 
+          //Michael's logic here:
           // moods.forEach((mood, index) => mood.genre = listOfGenresFromAPI[index]);
-
           // moods.map((mood) => <option value={mood.genre}>{mood.name}</option>)
+
+          // Villette's logic here:
+          // for (var i = 0; i<genreResponse.data.categories.items.length; i++) {
+          //   // console.log(genreResponse.data.categories.items[i])
+          //   if (genreResponse.data.categories.items[i].name === "Pop") {
+          //     setGenres({
+          //       selectedGenre: genres.selectedGenre,
+          //       listOfGenresFromAPI: genreResponse.data.categories.items,
+          //       correspondingWords: "Happy"
+          //     })
+          //     console.log(genres)
+          //   }
+          // }
         });
         
       });
@@ -87,24 +102,15 @@ const MusicSearch = () => {
         })
       });
       console.log(val);
-
-      
-      if (genres.listOfGenresFromAPI.name === "Hip Hop") {
-        console.log();
-      }
-
       // console.log(genres.listOfGenresFromAPI);
-      console.log(genres.listOfGenresFromAPI[0].name);
+      // console.log(genres.listOfGenresFromAPI[0].name);
     }
   
     const playlistChanged = val => {
       console.log(val);
-      console.log(playlist.listOfPlaylistFromAPI)
       setPlaylist({
         selectedPlaylist: val,
-        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI,
-        
-
+        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI
       });
     }
   
@@ -126,16 +132,12 @@ const MusicSearch = () => {
     }
   
     const listboxClicked = val => {
-  
       const currentTracks = [...tracks.listOfTracksFromAPI];
-  
       const trackInfo = currentTracks.filter(t => t.track.id === val);
   
       setTrackDetail(trackInfo[0].track);
   
     }
-  
-    
     
   
     return (
@@ -155,8 +157,6 @@ const MusicSearch = () => {
             </div>        
         </form>
       </div>
-      
-      
     );
   }
   
