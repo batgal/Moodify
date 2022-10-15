@@ -5,7 +5,15 @@ const Dropdown = props => {
     const dropdownChanged = e => {
         props.changed(e.target.value);
 
-    }    
+    }
+    // let happy = ['rock', 'pop', 'country'];    
+    // let energized = ['techno', 'electronica'];
+    // let moods = [];
+    // if happy.indexOf(props.options.name) < 0
+    //     moods.push('happy'); 
+    // else if energized(props.options.name) < 0
+    //     if moods.indexOf('energized') < 0
+    //         moods.push('energized');
 
     return (
         <div className="col-sm-6 form-group row px-0">     
