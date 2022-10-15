@@ -7,7 +7,23 @@ import axios from 'axios';
 
 const MusicSearch = () => {
     const spotify = Credentials();  
-
+    //hard code here
+    // moods = [
+    //   {
+    //   name: "Happy",
+    //   genre: "",
+    //   },
+    //   {
+    //   name: "Angry",
+    //   genre: "",
+    //   },
+    //   {
+    //   name: "Chill",
+    //   genre: "",
+    //   }]
+      
+      
+    //   [pop, metal, rock]
     console.log('RENDERING APP.JS');
   
     const data = [
@@ -47,18 +63,10 @@ const MusicSearch = () => {
             selectedGenre: genres.selectedGenre,
             listOfGenresFromAPI: genreResponse.data.categories.items
           })
-          //Added code:
-          // for (var i = 0; i<genreResponse.data.categories.items.length; i++) {
-          //   // console.log(genreResponse.data.categories.items[i])
-          //   if (genreResponse.data.categories.items[i].name === "Pop") {
-          //     setGenres({
-          //       selectedGenre: genres.selectedGenre,
-          //       listOfGenresFromAPI: genreResponse.data.categories.items,
-          //       correspondingWords: "Happy"
-          //     })
-          //     console.log(genres)
-          //   }
-          // }
+          //logic here 
+          // moods.forEach((mood, index) => mood.genre = listOfGenresFromAPI[index]);
+
+          // moods.map((mood) => <option value={mood.genre}>{mood.name}</option>)
         });
         
       });
@@ -81,15 +89,25 @@ const MusicSearch = () => {
           listOfPlaylistFromAPI: playlistResponse.data.playlists.items
         })
       });
-      // console.log(val);
-      // console.log(genres.listOfGenresFromAPI[0].name);
+      console.log(val);
+
+      
+      if (genres.listOfGenresFromAPI.name === "Hip Hop") {
+        console.log();
+      }
+
+      // console.log(genres.listOfGenresFromAPI);
+      console.log(genres.listOfGenresFromAPI[0].name);
     }
   
     const playlistChanged = val => {
       console.log(val);
+      console.log(playlist.listOfPlaylistFromAPI)
       setPlaylist({
         selectedPlaylist: val,
-        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI
+        listOfPlaylistFromAPI: playlist.listOfPlaylistFromAPI,
+        
+
       });
     }
   
@@ -123,8 +141,9 @@ const MusicSearch = () => {
   
     return (
       <div className="container">
-        <form onSubmit={buttonClicked}>        
-            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.listOfGenresFromAPI} changed={genreChanged} />
+        <form onSubmit={buttonClicked}>   
+        {/* change genres to moods      */}
+            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
             <Dropdown label="Playlist" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
             <div className="col-sm-6 row form-group px-0">
               <button type='submit' className="btn btn-success col-sm-12">
