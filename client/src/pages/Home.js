@@ -11,7 +11,7 @@ const Home = () => {
     <main>
       <div className="flex-row justify-center">
         <div className="col-12 col-md-10 my-3">
-          <h1>Stuff will go here</h1>
+          <h1>Get Your Mood On</h1>
         </div>
       </div>
     </main>
