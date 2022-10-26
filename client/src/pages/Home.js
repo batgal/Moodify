@@ -1,19 +1,21 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-
-import { QUERY_PROFILES } from '../utils/queries';
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_PROFILES);
-  const profiles = data?.profiles || [];
 
   return (
     <main>
-      <div className="flex-row justify-center">
-        <div className="col-12 col-md-10 my-3">
-          <h1>Get Your Mood On</h1>
-        </div>
+{/* <!-- Hero --> */}
+<div className="p-5 text-center musichero">
+  <div className="mask">
+    <div className="d-flex justify-content-center align-items-center">
+      <div className="text-white">
+        <h1 className="">Moodify</h1>
+        <h4 className="">Create a music playlist for your mood.</h4>
       </div>
+    </div>
+  </div>
+</div>
+{/* <!-- Hero --> */}
     </main>
   );
 };

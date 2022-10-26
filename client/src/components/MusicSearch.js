@@ -7,35 +7,11 @@ import axios from 'axios';
 
 const MusicSearch = () => {
     const spotify = Credentials();  
-    //hard code here
-    // moods = [
-    //   {
-    //   name: "Happy",
-    //   genre: "",
-    //   },
-    //   {
-    //   name: "Angry",
-    //   genre: "",
-    //   },
-    //   {
-    //   name: "Chill",
-    //   genre: "",
-    //   }]
-      
-      
-    //   [pop, metal, rock]
     console.log('RENDERING APP.JS');
-  
-    const data = [
-      {value: 1, name: 'A'},
-      {value: 2, name: 'B'},
-      {value: 3, name: 'C'},
-    ]; 
+
   
     const [token, setToken] = useState('');  
     const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
-    // Villette's additional logic, replaces above setGenres
-    // const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: [], correspondingWords: []});
     const [playlist, setPlaylist] = useState({selectedPlaylist: '', listOfPlaylistFromAPI: []});
     const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
     const [trackDetail, setTrackDetail] = useState(null);
@@ -58,27 +34,10 @@ const MusicSearch = () => {
           headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
         })
         .then (genreResponse => {       
-          // Villette's logic requires removal of this setGenres code:
           setGenres({
             selectedGenre: genres.selectedGenre,
             listOfGenresFromAPI: genreResponse.data.categories.items
           })
-          //Michael's logic here:
-          // moods.forEach((mood, index) => mood.genre = listOfGenresFromAPI[index]);
-          // moods.map((mood) => <option value={mood.genre}>{mood.name}</option>)
-
-          // Villette's logic here:
-          // for (var i = 0; i<genreResponse.data.categories.items.length; i++) {
-          //   // console.log(genreResponse.data.categories.items[i])
-          //   if (genreResponse.data.categories.items[i].name === "Pop") {
-          //     setGenres({
-          //       selectedGenre: genres.selectedGenre,
-          //       listOfGenresFromAPI: genreResponse.data.categories.items,
-          //       correspondingWords: "Happy"
-          //     })
-          //     console.log(genres)
-          //   }
-          // }
         });
         
       });
@@ -141,22 +100,42 @@ const MusicSearch = () => {
     
   
     return (
-      <div className="container">
+      <main>
+      
+      <div className="row gx-5 columns-holder">
+
+      <div className="col-lg-5 col-md-12">
+      <div className="card">
+      <h4 className="card-header bg-dark text-light p-2">Generate Playlist</h4>
+      <div className="card-body">
         <form onSubmit={buttonClicked}>   
-        {/* change genres to moods      */}
-            <Dropdown label="Mood" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
-            <Dropdown label="Playlist" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
-            <div className="col-sm-6 row form-group px-0">
+            <Dropdown label="Mood" className="add-gap" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
+            <Dropdown label="Playlist"  options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
+            <div>
               <button type='submit' className="btn btn-success col-sm-12">
                 Search
               </button>
-            </div>
-            <div className="row">
-              <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
-              {trackDetail && <Detail {...trackDetail} /> }
-            </div>        
+            </div>     
         </form>
       </div>
+      </div>
+      </div>
+
+      <div className="col-lg-5 col-md-12">
+      <div className="card">
+      <h4 className="card-header bg-dark text-light p-2">Results</h4>
+      <div className="card-body">
+              <div className="row">
+              <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
+              {trackDetail && <Detail {...trackDetail} /> }
+              </div>
+      </div>  
+      </div> 
+      </div>  
+
+        </div>
+
+      </main>
     );
   }
   
