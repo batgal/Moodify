@@ -104,12 +104,12 @@ const MusicSearch = () => {
       
       <div className="row gx-5 columns-holder">
 
-      <div className="col-5">
+      <div className="col-lg-5 col-md-12">
       <div className="card">
       <h4 className="card-header bg-dark text-light p-2">Generate Playlist</h4>
       <div className="card-body">
         <form onSubmit={buttonClicked}>   
-            <Dropdown label="Mood"  options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
+            <Dropdown label="Mood" className="add-gap" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} />
             <Dropdown label="Playlist"  options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} />
             <div>
               <button type='submit' className="btn btn-success col-sm-12">
@@ -121,12 +121,14 @@ const MusicSearch = () => {
       </div>
       </div>
 
-      <div className="col-5">
+      <div className="col-lg-5 col-md-12">
       <div className="card">
       <h4 className="card-header bg-dark text-light p-2">Results</h4>
       <div className="card-body">
+              <div className="row">
               <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
               {trackDetail && <Detail {...trackDetail} /> }
+              </div>
       </div>  
       </div> 
       </div>  

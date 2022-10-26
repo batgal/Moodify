@@ -43,8 +43,8 @@ const Profile = () => {
 
   return (
     <div>
-      <h2 className="card-header">
-        {profileId ? `${profile.name}'s` : 'Your'} PLAYLIST is here...
+      <h2 className="your-music">
+        {profileId ? `${profile.name}'s` : 'Your'} music is here...
       </h2>
       <MusicSearch/>
     </div>

@@ -1,6 +1,7 @@
 .musichero {
   background-image: url('../public/images/musichero.jpg');
   background-size: cover;
+  background-position: center;
   height: 100vh;
   width: 100vw;
 }
@@ -33,4 +34,39 @@ form input {
 
 .columns-holder {
   justify-content: center;
+}
+
+.album-name {
+  font-weight: 400;
+}
+
+.your-music {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  margin-left: 2vw;
+}
+
+.btn-success {
+  margin-top: 5vh;
+}
+
+.form-label {
+  margin-top: 0.5rem;
+}
+
+.album-pic {
+  width: 100%;
+}
+
+@media screen 
+and (max-width : 440px) {
+  .login-card, .signup-card {
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4vh;
+  }
+.columns-holder {
+  margin: 20px;
+}
 }

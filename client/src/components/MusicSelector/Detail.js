@@ -3,22 +3,22 @@ import React from 'react';
 const Detail = ({album, artists, name}) => {
 
     return (
-        <div className= "col-sm-4" >
-            <div className="row col-sm-12 px-0">
-                <img 
+        <div className="col-5">
+            <div>
+                <img className="album-pic"
                     src={album.images[0].url}
                     alt={name}>                    
                 </img>
             </div>
-            <div className>
-                <label htmlFor={name}>
+            <div>
+                <label className="album-name" htmlFor={name}>
+                    <b>
                     {name}
+                    </b>
                 </label>
             </div>
             <div>
-                <label htmlFor={artists[0].name} className="form-label col-sm-12">
-                    {artists[0].name}
-                </label>
+                <label htmlFor={artists[0].name}>by {artists[0].name}</label>
             </div>
         </div>
     );
