@@ -26,11 +26,11 @@ const MusicSearch = () => {
     //   [pop, metal, rock]
     console.log('RENDERING APP.JS');
   
-    const data = [
-      {value: 1, name: 'A'},
-      {value: 2, name: 'B'},
-      {value: 3, name: 'C'},
-    ]; 
+    // const data = [
+    //   {value: 1, name: 'A'},
+    //   {value: 2, name: 'B'},
+    //   {value: 3, name: 'C'},
+    // ]; 
   
     const [token, setToken] = useState('');  
     const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
