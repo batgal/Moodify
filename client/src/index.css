@@ -8,3 +8,29 @@
 .mask {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+/* Not working */
+/* .header {
+  background-color: crimson !important;
+} */
+
+
+.login-card, .signup-card {
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 18vh;
+}
+
+form {
+display: flex;
+flex-direction: column;
+}
+
+form input {
+  margin-bottom: 5vh;
+}
+
+.columns-holder {
+  justify-content: center;
+}

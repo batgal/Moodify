@@ -9,7 +9,7 @@ const Header = () => {
     Auth.logout();
   };
   return (
-    <header className="bg-info text-dark py-3 display-flex align-center">
+    <header className="bg-info text-dark py-3 display-flex align-center header">
       <div className="container flex-column justify-space-between-lg justify-center align-center text-center">
         <div>
           {Auth.loggedIn() ? (
